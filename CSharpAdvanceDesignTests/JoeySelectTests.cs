@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -15,7 +16,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls);
+            var actual = JoeySelect(urls, url => url.Replace("http://", "https://"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -55,12 +56,12 @@ namespace CSharpAdvanceDesignTests
             return list;
         }
 
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
+        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> map)
         {
             var list = new List<string>();
             foreach (var url in urls)
             {
-                list.Add(url.Replace("http://", "https://"));
+                list.Add(map(url));
             }
             return list;
         }
