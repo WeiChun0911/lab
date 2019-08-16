@@ -86,10 +86,10 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual); 
         }
 
-        private List<TSource> JoeyWhere<TSource>(List<TSource> Soucre, Func<TSource, bool> predicate)
+        private List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
-            foreach (var item in Soucre)
+            foreach (var item in source)
             {
                 if (predicate(item))
                 {
