@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -23,7 +24,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            //var actual = JoeyWhere(products);
+            var actual = JoeyWhere(products);
 
             var expected = new List<Product>
             {
@@ -32,7 +33,22 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 4, Cost = 41, Price = 410, Supplier = "Odd-e"}
             };
 
-            //expected.ToExpectedObject().ShouldMatch(actual);
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+
+        private List<Product> JoeyWhere(List<Product> products)
+        {
+            var result = new List<Product>();
+            foreach (var product in products)
+            {
+                if (product.Price > 200 && product.Price < 500)
+                {
+                    result.Add(product);
+                }
+            }
+
+            return result;
         }
     }
 }
