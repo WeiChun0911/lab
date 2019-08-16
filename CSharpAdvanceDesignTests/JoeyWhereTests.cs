@@ -1,29 +1,12 @@
-﻿using System;
-using Lab.Entities;
+﻿using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public static class ExtensionMethod
-    {
-        public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
-        {
-            var result = new List<TSource>();
-            foreach (var item in source)
-            {
-                if (predicate(item))
-                {
-                    result.Add(item);
-                }
-            }
-
-            return result;
-        }
-    }
-
     [TestFixture()]
     public class JoeyWhereTests
     {
