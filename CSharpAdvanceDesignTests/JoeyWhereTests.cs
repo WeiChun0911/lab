@@ -75,7 +75,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            //var actual = JoeyWhere(employees, e => e.FirstName.Length < 5);
+            var actual = JoeyWhereForEmployee(employees, e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
@@ -83,7 +83,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            //expected.ToExpectedObject().ShouldMatch(actual); 
+            expected.ToExpectedObject().ShouldMatch(actual); 
+        }
+
+        private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> func)
+        {
+            throw new NotImplementedException();
         }
 
         private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
