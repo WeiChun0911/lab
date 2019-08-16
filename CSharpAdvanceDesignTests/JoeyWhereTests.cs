@@ -88,7 +88,16 @@ namespace CSharpAdvanceDesignTests
 
         private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> func)
         {
-            throw new NotImplementedException();
+            var result = new List<Employee>();
+            foreach (var employee in employees)
+            {
+                if (func(employee))
+                {
+                    result.Add(employee);
+                }
+            }
+
+            return result;
         }
 
         private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
