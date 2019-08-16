@@ -46,6 +46,30 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
+
+
+        [Test]
+        public void select_with_seq_no()
+        {
+            var urls = GetUrls();
+
+            var actual = JoeySelectWithIndex(urls);
+            var expected = new List<string>
+            {
+                "1. http://tw.yahoo.com",
+                "2. https://facebook.com",
+                "3. https://twitter.com",
+                "4. http://github.com",
+            };
+
+            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+        }
+
+        private List<string> JoeySelectWithIndex(IEnumerable<string> urls)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> map)
         {
             var list = new List<string>();
