@@ -7,7 +7,6 @@ using System.Linq;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeySkipTests
     {
         [Test]
@@ -15,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = GetEmployees();
 
-            var actual = JoeySelect(employees);
+            var actual = JoeySkip(employees);
 
             var expected = new List<Employee>
             {
@@ -27,7 +26,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
-        private IEnumerable<Employee> JoeySelect(IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees)
         {
             throw new System.NotImplementedException();
         }
