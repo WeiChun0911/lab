@@ -32,14 +32,7 @@ namespace CSharpAdvanceDesignTests
             var list = new List<string>();
             foreach (var url in urls)
             {
-                if (url.StartsWith("http://"))
-                {
-                    list.Add(url.Replace("http://", "https://"));
-                }
-                else
-                {
-                    list.Add(url);
-                }
+                list.Add(url.Replace("http://", "https://"));
             }
             return list;
         }
