@@ -67,7 +67,14 @@ namespace CSharpAdvanceDesignTests
 
         private List<string> JoeySelectWithIndex(IEnumerable<string> urls)
         {
-            throw new NotImplementedException();
+            var list = new List<string>();
+            var index = 1;
+            foreach (var url in urls)
+            {
+                list.Add($"{index}. {url}");
+                index++;
+            }
+            return list;
         }
 
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> map)
