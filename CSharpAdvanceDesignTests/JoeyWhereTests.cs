@@ -100,9 +100,9 @@ namespace CSharpAdvanceDesignTests
             return result;
         }
 
-        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
+        private List<TSource> JoeyWhere<TSource>(List<TSource> products, Func<TSource, bool> predicate)
         {
-            var result = new List<Product>();
+            var result = new List<TSource>();
             foreach (var product in products)
             {
                 if (predicate(product))
