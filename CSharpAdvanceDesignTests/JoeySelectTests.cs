@@ -50,7 +50,7 @@ namespace CSharpAdvanceDesignTests
             var list = new List<string>();
             foreach (var url in urls)
             {
-                list.Add(url + ":9191");
+                list.Add($"{url}:9191");
             }
             return list;
         }
