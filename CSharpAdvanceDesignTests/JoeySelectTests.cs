@@ -27,6 +27,29 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
+
+        [Test]
+        public void append_port_9191_to_urls()
+        {
+            var urls = GetUrls();
+
+            var actual = JoeySelectWithPort(urls);
+            var expected = new List<string>
+            {
+                "http://tw.yahoo.com:9191",
+                "https://facebook.com:9191",
+                "https://twitter.com:9191",
+                "http://github.com:9191",
+            };
+
+            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+        }
+
+        private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
         {
             var list = new List<string>();
