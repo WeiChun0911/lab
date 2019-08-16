@@ -56,9 +56,15 @@ namespace CSharpAdvanceDesignTests
             var index = 0;
             while (enumerator.MoveNext())
             {
-                if (index > 1) yield break;
+                if (index < 2)
+                {
+                    yield return enumerator.Current;
+                }
+                else
+                {
+                    yield break;
+                }
                 index++;
-                yield return enumerator.Current;
             }
         }
 
