@@ -88,9 +88,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<string> JoeySelectWithEmployee<TSource>(List<TSource> employees, Func<TSource, string> selector)
+        private List<TResult> JoeySelectWithEmployee<TSource,TResult>(List<TSource> employees, Func<TSource, TResult> selector)
         {
-            var list = new List<string>();
+            var list = new List<TResult>();
             foreach (var employee in employees)
             {
                 list.Add(selector(employee));
