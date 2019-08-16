@@ -50,6 +50,7 @@
     <Compile Include="Entities\Pet.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="ExtensionMethod.cs" />
     <Compile Include="IValidator.cs" />
     <Compile Include="ProductValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
