@@ -9,7 +9,6 @@ using System.Linq;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeySkipWhileTests
     {
         [Test]
@@ -41,7 +40,17 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
         {
-            throw new NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+            var flag = 0;
+            while (enumerator.MoveNext())
+            {
+                var card = enumerator.Current;
+                if (card.Kind == CardKind.Separate) flag = 1;
+                if (flag != 0)
+                {
+                    yield return card;
+                }
+            }
         }
     }
 }
