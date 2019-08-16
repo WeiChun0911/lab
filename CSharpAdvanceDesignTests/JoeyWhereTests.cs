@@ -88,16 +88,17 @@ namespace CSharpAdvanceDesignTests
 
         private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> func)
         {
-            var result = new List<Employee>();
-            foreach (var employee in employees)
-            {
-                if (func(employee))
-                {
-                    result.Add(employee);
-                }
-            }
+            return JoeyWhere(employees, func);
+            //var result = new List<Employee>();
+            //foreach (var employee in employees)
+            //{
+            //    if (func(employee))
+            //    {
+            //        result.Add(employee);
+            //    }
+            //}
 
-            return result;
+            //return result;
         }
 
         private List<TSource> JoeyWhere<TSource>(List<TSource> Soucre, Func<TSource, bool> predicate)
