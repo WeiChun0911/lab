@@ -101,10 +101,12 @@ namespace CSharpAdvanceDesignTests
             int index = 0;
             foreach (var number in numbers)
             {
-                if (number > 0)
+                if (index != 1 && number > 0)
                 {
                     list.Add(number);
                 }
+
+                index++;
             }
 
             return list;
