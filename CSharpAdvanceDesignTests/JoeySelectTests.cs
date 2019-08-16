@@ -47,7 +47,12 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls)
         {
-            throw new System.NotImplementedException();
+            var list = new List<string>();
+            foreach (var url in urls)
+            {
+                list.Add(url + ":9191");
+            }
+            return list;
         }
 
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
