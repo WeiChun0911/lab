@@ -86,7 +86,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual); 
         }
 
-        private List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
+        private static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
             foreach (var item in source)
