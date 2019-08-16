@@ -9,7 +9,7 @@ namespace CSharpAdvanceDesignTests
 {
     public static class ExtensionMethod
     {
-        private static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
+        public static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
             foreach (var item in source)
