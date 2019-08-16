@@ -1,4 +1,5 @@
-﻿using Lab.Entities;
+﻿using System;
+using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
@@ -90,18 +91,18 @@ namespace CSharpAdvanceDesignTests
         public void find_the_first_one_and_skip_second_one_and_take_other_positive_numbers()
         {
             var numbers = new List<int> { 1, 2, 3, 4, -5 };
-            var actual = JoeyWhereWithIndex(numbers);
+            var actual = JoeyWhereWithIndex(numbers, (number, index) => Filter(number, index));
             var expected = new List<int> { 1, 3, 4 };
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<int> JoeyWhereWithIndex(List<int> numbers)
+        private List<int> JoeyWhereWithIndex(List<int> numbers, Func<int, int, bool> predicate)
         {
             var list = new List<int>();
             int index = 0;
             foreach (var number in numbers)
             {
-                if (index != 1 && number > 0)
+                if (predicate(number, index))
                 {
                     list.Add(number);
                 }
@@ -110,6 +111,11 @@ namespace CSharpAdvanceDesignTests
             }
 
             return list;
+        }
+
+        private static bool Filter(int number, int index)
+        {
+            return index != 1 && number > 0;
         }
     }
 }
