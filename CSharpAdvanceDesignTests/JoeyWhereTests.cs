@@ -75,8 +75,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            Func<Employee, bool> func = e => e.FirstName.Length < 5;
-            var actual = JoeyWhere(employees, func);
+            var actual = JoeyWhere(employees, e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
