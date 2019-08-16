@@ -97,8 +97,7 @@ namespace Lab
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var item = enumerator.Current;
-                yield return selector(item);
+                yield return selector(enumerator.Current);
             }
 
             //var result = new List<TResult>();
