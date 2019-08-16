@@ -77,7 +77,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            var actual = employees.JoeySelectWithEmployee(e => $"{e.FirstName} {e.LastName}");
+            var actual = employees.JoeySelect(e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",

@@ -57,5 +57,16 @@ namespace Lab
             }
             return list;
         }
+
+        public static List<TResult> JoeySelect<TSource,TResult>(this List<TSource> employees, Func<TSource, TResult> selector)
+        {
+            var list = new List<TResult>();
+            foreach (var employee in employees)
+            {
+                list.Add(selector(employee));
+            }
+
+            return list;
+        }
     }
 }
