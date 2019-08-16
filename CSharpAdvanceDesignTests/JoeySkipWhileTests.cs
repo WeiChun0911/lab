@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            var actual = JoeySkipWhile(cards, card => card.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -53,7 +53,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhilePointLessThan5(cards, card => card.Point < 5);
+            var actual = JoeySkipWhile(cards, card => card.Point < 5);
 
             var expected = new List<Card>
             {
@@ -65,14 +65,14 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Card> JoeySkipWhilePointLessThan5(IEnumerable<Card> cards, Func<Card, bool> skip)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> skipCondition)
         {
             var enumerator = cards.GetEnumerator();
             bool matched = false;
             while (enumerator.MoveNext())
             {
                 var card = enumerator.Current;
-                if (!skip(card))
+                if (!skipCondition(card))
                 {
                     matched = true;
                 }
@@ -82,22 +82,6 @@ namespace CSharpAdvanceDesignTests
                     yield return card;
                 }
             }
-        }
-
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
-        {
-            return JoeySkipWhilePointLessThan5(cards, card => card.Kind != CardKind.Separate);
-            //var enumerator = cards.GetEnumerator();
-            //bool matched = false;
-            //while (enumerator.MoveNext())
-            //{
-            //    var card = enumerator.Current;
-            //    if (card.Kind == CardKind.Separate) matched = true;
-            //    if (matched)
-            //    {
-            //        yield return card;
-            //    }
-            //}
         }
     }
 }
