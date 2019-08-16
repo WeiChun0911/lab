@@ -7,7 +7,7 @@ using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ExtensionMethod
+    public static class ExtensionMethod
     {
         private static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
         {
