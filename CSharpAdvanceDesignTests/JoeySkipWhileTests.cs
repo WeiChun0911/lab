@@ -41,12 +41,12 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
         {
             var enumerator = cards.GetEnumerator();
-            var flag = 0;
+            bool matched = false;
             while (enumerator.MoveNext())
             {
                 var card = enumerator.Current;
-                if (card.Kind == CardKind.Separate) flag = 1;
-                if (flag != 0)
+                if (card.Kind == CardKind.Separate) matched = true;
+                if (matched)
                 {
                     yield return card;
                 }
