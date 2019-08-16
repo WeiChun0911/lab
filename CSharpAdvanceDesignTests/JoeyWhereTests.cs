@@ -91,7 +91,7 @@ namespace CSharpAdvanceDesignTests
         public void find_the_first_one_and_skip_second_one_and_take_other_positive_numbers()
         {
             var numbers = new List<int> { 1, 2, 3, 4, -5 };
-            var actual = JoeyWhereWithIndex(numbers, (number, index) => Filter(number, index));
+            var actual = JoeyWhereWithIndex(numbers, (number, index) => index != 1 && number > 0);
             var expected = new List<int> { 1, 3, 4 };
             expected.ToExpectedObject().ShouldMatch(actual);
         }
@@ -111,11 +111,6 @@ namespace CSharpAdvanceDesignTests
             }
 
             return list;
-        }
-
-        private static bool Filter(int number, int index)
-        {
-            return index != 1 && number > 0;
         }
     }
 }
