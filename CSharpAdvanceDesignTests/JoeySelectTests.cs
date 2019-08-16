@@ -77,7 +77,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            var actual = JoeySelectWithEmployee(employees, e => $"{e.FirstName} {e.LastName}");
+            var actual = employees.JoeySelectWithEmployee(e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",
@@ -86,17 +86,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private List<TResult> JoeySelectWithEmployee<TSource,TResult>(List<TSource> employees, Func<TSource, TResult> selector)
-        {
-            var list = new List<TResult>();
-            foreach (var employee in employees)
-            {
-                list.Add(selector(employee));
-            }
-
-            return list;
         }
 
 
