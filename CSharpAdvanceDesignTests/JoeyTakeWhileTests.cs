@@ -7,7 +7,6 @@ using System.Linq;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyTakeWhileTests
     {
         [Test]
@@ -37,7 +36,19 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards)
         {
-            throw new System.NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var card = enumerator.Current;
+                if (card.Kind != CardKind.Separate)
+                {
+                    yield return card;
+                }
+                else
+                {
+                    yield break;
+                }
+            }
         }
     }
 }
