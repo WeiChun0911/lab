@@ -35,5 +35,27 @@ namespace Lab
 
             return list;
         }
+
+        public static List<string> JoeySelectWithIndex(this IEnumerable<string> urls, Func<int, string, string> Selector)
+        {
+            var list = new List<string>();
+            var index = 0;
+            foreach (var url in urls)
+            {
+                list.Add(Selector(index, url));
+                index++;
+            }
+            return list;
+        }
+
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, string> Selector)
+        {
+            var list = new List<string>();
+            foreach (var url in urls)
+            {
+                list.Add(Selector(url));
+            }
+            return list;
+        }
     }
 }

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -16,7 +17,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls, url => url.Replace("http://", "https://"));
+            var actual = urls.JoeySelect(url => url.Replace("http://", "https://"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -34,7 +35,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls, url => $"{url}:9191");
+            var actual = urls.JoeySelect(url => $"{url}:9191");
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -53,7 +54,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelectWithIndex(urls, (index, url) => $"{index+1}. {url}");
+            var actual = urls.JoeySelectWithIndex((index, url) => $"{index+1}. {url}");
             var expected = new List<string>
             {
                 "1. http://tw.yahoo.com",
@@ -63,28 +64,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
-        }
-
-        private List<string> JoeySelectWithIndex(IEnumerable<string> urls, Func<int, string, string> Selector)
-        {
-            var list = new List<string>();
-            var index = 0;
-            foreach (var url in urls)
-            {
-                list.Add(Selector(index, url));
-                index++;
-            }
-            return list;
-        }
-
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> Selector)
-        {
-            var list = new List<string>();
-            foreach (var url in urls)
-            {
-                list.Add(Selector(url));
-            }
-            return list;
         }
 
         private static IEnumerable<string> GetUrls()
