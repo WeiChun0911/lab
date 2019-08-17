@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -24,6 +25,16 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 
+        [Test]
+        public void get_first_girl_when_girls_is_empty()
+        {
+            var girls = new Girl[] { };
+
+            TestDelegate action = () => JoeyFirst(girls);
+
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
         private Girl JoeyFirst(IEnumerable<Girl> girls)
         {
             var enumerator = girls.GetEnumerator();
@@ -32,7 +43,7 @@ namespace CSharpAdvanceDesignTests
                 return enumerator.Current;
             }
 
-            return null;
+            throw new InvalidOperationException();
         }
     }
 }
