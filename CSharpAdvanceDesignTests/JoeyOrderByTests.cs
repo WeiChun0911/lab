@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CompareObject
+    public class CompareObject: IComparer<Employee>
     {
         public CompareObject(Func<Employee, string> firstCompareItemSelector, IComparer<string> firstComparer)
         {
@@ -18,11 +18,11 @@ namespace CSharpAdvanceDesignTests
         public Func<Employee, string> FirstCompareItemSelector { get; private set; }
         public IComparer<string> FirstComparer { get; private set; }
 
-        public int Compare(Employee currentElement, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
             var firstCompareResult = FirstComparer.Compare(
-                FirstCompareItemSelector(currentElement),
-                FirstCompareItemSelector(minElement));
+                FirstCompareItemSelector(x),
+                FirstCompareItemSelector(y));
             return firstCompareResult;
         }
     }
