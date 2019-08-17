@@ -18,6 +18,11 @@ namespace CSharpAdvanceDesignTests
 
         private int JoeyCount(IEnumerable<int> numbers)
         {
+            if(numbers is ICollection<int> n)
+            {
+                return n.Count;
+            }
+
             var enumerator = numbers.GetEnumerator();
             var count = 0;
             while (enumerator.MoveNext())
