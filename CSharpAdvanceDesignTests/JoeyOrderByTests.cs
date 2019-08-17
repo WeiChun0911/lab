@@ -27,7 +27,7 @@ namespace CSharpAdvanceDesignTests
         }
     }
 
-    public class ComboCompare
+    public class ComboCompare: IComparer<Employee>
     {
         public ComboCompare(IComparer<Employee> firstCompareObject, IComparer<Employee> secondCompareObject)
         {
@@ -38,17 +38,17 @@ namespace CSharpAdvanceDesignTests
         public IComparer<Employee> FirstCompareObject { get; private set; }
         public IComparer<Employee> SecondCompareObject { get; private set; }
 
-        public int Compare(Employee currentElement, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
             int finalResult = 0;
-            var firstCompareResult = FirstCompareObject.Compare(currentElement, minElement);
+            var firstCompareResult = FirstCompareObject.Compare(x, y);
             if (firstCompareResult < 0)
             {
                 finalResult = firstCompareResult;
             }
             else if (firstCompareResult == 0)
             {
-                var secondCompareResult = SecondCompareObject.Compare(currentElement, minElement);
+                var secondCompareResult = SecondCompareObject.Compare(x, y);
                 if (secondCompareResult < 0)
                 {
                     finalResult = secondCompareResult;
