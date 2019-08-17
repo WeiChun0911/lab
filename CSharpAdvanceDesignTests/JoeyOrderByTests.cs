@@ -78,7 +78,11 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboCompare(new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default), new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default)));
+            var actual = JoeyOrderByLastNameAndFirstName(
+                employees, 
+                new ComboCompare(
+                    new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default), 
+                    new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -92,7 +96,9 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, ComboCompare comboCompare)
+            IEnumerable<Employee> employees, 
+            ComboCompare comboCompare
+            )
         {
             //bubble sort
             var elements = employees.ToList();
@@ -103,20 +109,26 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var currentElement = elements[i];
+                    var finalResult = 0;
+
                     var firstCompareResult = comboCompare.FirstCompareObject.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
-                        minElement = currentElement;
-                        index = i;
+                        finalResult = firstCompareResult;
                     }
                     else if (firstCompareResult == 0)
                     {
                         var secondCompareResult = comboCompare.SecondCompareObject.Compare(currentElement,minElement);
                         if (secondCompareResult < 0)
                         {
-                            minElement = currentElement;
-                            index = i;
+                            finalResult = secondCompareResult;
                         }
+                    }
+
+                    if (finalResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
                     }
                 }
 
