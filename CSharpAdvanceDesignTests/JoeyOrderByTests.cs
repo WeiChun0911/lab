@@ -9,20 +9,20 @@ namespace CSharpAdvanceDesignTests
 {
     public class CompareObject: IComparer<Employee>
     {
-        public CompareObject(Func<Employee, string> firstCompareItemSelector, IComparer<string> firstComparer)
+        public CompareObject(Func<Employee, string> compareItemSelector, IComparer<string> comparer)
         {
-            FirstCompareItemSelector = firstCompareItemSelector;
-            FirstComparer = firstComparer;
+            CompareItemSelector = compareItemSelector;
+            Comparer = comparer;
         }
 
-        public Func<Employee, string> FirstCompareItemSelector { get; private set; }
-        public IComparer<string> FirstComparer { get; private set; }
+        public Func<Employee, string> CompareItemSelector { get; private set; }
+        public IComparer<string> Comparer { get; private set; }
 
         public int Compare(Employee x, Employee y)
         {
-            var firstCompareResult = FirstComparer.Compare(
-                FirstCompareItemSelector(x),
-                FirstCompareItemSelector(y));
+            var firstCompareResult = Comparer.Compare(
+                CompareItemSelector(x),
+                CompareItemSelector(y));
             return firstCompareResult;
         }
     }
@@ -69,8 +69,7 @@ namespace CSharpAdvanceDesignTests
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees, 
                 new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default),
-                currentElement => currentElement.FirstName, 
-                Comparer<string>.Default);
+                new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -86,8 +85,7 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
             IComparer<Employee> compareObject, 
-            Func<Employee, string> secondCompareItemSelector, 
-            IComparer<string> secondComparer)
+            IComparer<Employee> secondCompareObject)
         {
             //bubble sort
             var elements = employees.ToList();
@@ -97,7 +95,6 @@ namespace CSharpAdvanceDesignTests
                 var index = 0;
                 for (int i = 1; i < elements.Count; i++)
                 {
-                    //比較小就 swap
                     var currentElement = elements[i];
                     var firstCompareResult = compareObject.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
@@ -105,12 +102,10 @@ namespace CSharpAdvanceDesignTests
                         minElement = currentElement;
                         index = i;
                     }
-                    //一樣就比 FirstName
                     else if (firstCompareResult == 0)
                     {
-                        if (secondComparer.Compare(
-                                secondCompareItemSelector(currentElement), 
-                                secondCompareItemSelector(minElement)) < 0)
+                        var secondCompareResult = secondCompareObject.Compare(currentElement,minElement);
+                        if (secondCompareResult < 0)
                         {
                             minElement = currentElement;
                             index = i;
