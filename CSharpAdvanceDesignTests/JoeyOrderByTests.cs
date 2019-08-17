@@ -66,7 +66,11 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default), currentElement1 => currentElement1.FirstName, Comparer<string>.Default);
+            var actual = JoeyOrderByLastNameAndFirstName(
+                employees, 
+                new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default),
+                currentElement => currentElement.FirstName, 
+                Comparer<string>.Default);
 
             var expected = new[]
             {
