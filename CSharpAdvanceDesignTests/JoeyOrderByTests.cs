@@ -17,6 +17,14 @@ namespace CSharpAdvanceDesignTests
 
         public Func<Employee, string> FirstCompareItemSelector { get; private set; }
         public IComparer<string> FirstComparer { get; private set; }
+
+        public int Compare(Employee currentElement, Employee minElement)
+        {
+            var firstCompareResult = FirstComparer.Compare(
+                FirstCompareItemSelector(currentElement),
+                FirstCompareItemSelector(minElement));
+            return firstCompareResult;
+        }
     }
 
     [TestFixture]
@@ -87,7 +95,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     //比較小就 swap
                     var currentElement = elements[i];
-                    var firstCompareResult = Compare(compareObject, currentElement, minElement);
+                    var firstCompareResult = compareObject.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
@@ -109,14 +117,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private static int Compare(CompareObject compareObject, Employee currentElement, Employee minElement)
-        {
-            var firstCompareResult = compareObject.FirstComparer.Compare(
-                compareObject.FirstCompareItemSelector(currentElement),
-                compareObject.FirstCompareItemSelector(minElement));
-            return firstCompareResult;
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
