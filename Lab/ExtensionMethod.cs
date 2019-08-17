@@ -153,5 +153,20 @@ namespace Lab
 
             return result;
         }
+
+        public static bool JoeyAnyWithCondition(this IEnumerable<int> source, Func<int, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
