@@ -109,21 +109,8 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var currentElement = elements[i];
-                    var finalResult = 0;
 
-                    var firstCompareResult = comboCompare.FirstCompareObject.Compare(currentElement, minElement);
-                    if (firstCompareResult < 0)
-                    {
-                        finalResult = firstCompareResult;
-                    }
-                    else if (firstCompareResult == 0)
-                    {
-                        var secondCompareResult = comboCompare.SecondCompareObject.Compare(currentElement,minElement);
-                        if (secondCompareResult < 0)
-                        {
-                            finalResult = secondCompareResult;
-                        }
-                    }
+                    var finalResult = Compare(comboCompare, currentElement, minElement);
 
                     if (finalResult < 0)
                     {
@@ -135,6 +122,26 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        private static int Compare(ComboCompare comboCompare, Employee currentElement, Employee minElement)
+        {
+            int finalResult;
+            var firstCompareResult = comboCompare.FirstCompareObject.Compare(currentElement, minElement);
+            if (firstCompareResult < 0)
+            {
+                finalResult = firstCompareResult;
+            }
+            else if (firstCompareResult == 0)
+            {
+                var secondCompareResult = comboCompare.SecondCompareObject.Compare(currentElement, minElement);
+                if (secondCompareResult < 0)
+                {
+                    finalResult = secondCompareResult;
+                }
+            }
+
+            return finalResult;
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
