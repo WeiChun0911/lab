@@ -69,6 +69,7 @@
     <Compile Include="JoeyIntersectTests.cs" />
     <Compile Include="JoeyJoinTests.cs" />
     <Compile Include="JoeyLastOrDefaultTests.cs" />
+    <Compile Include="JoeyLastTest.cs" />
     <Compile Include="JoeyMaxTests.cs" />
     <Compile Include="JoeyOfTypeTests.cs" />
     <Compile Include="JoeyOrderByTests.cs" />
