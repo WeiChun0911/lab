@@ -33,6 +33,29 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
+        [Test]
+        public void any_number_greater_than_91()
+        {
+            var numbers = new[] { 87, 88, 91, 93, 0 };
+            var actual = JoeyAnyWithCondition(numbers);
+            Assert.IsTrue(actual);
+        }
+
+        private bool JoeyAnyWithCondition(IEnumerable<int> source)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current > 91)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private bool JoeyAny(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
