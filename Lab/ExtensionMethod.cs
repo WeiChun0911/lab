@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab
 {
     public static class ExtensionMethod
     {
+        public static bool IsEmpty<TSource>(IEnumerable<TSource> source)
+        {
+            return !source.Any();
+        } 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
