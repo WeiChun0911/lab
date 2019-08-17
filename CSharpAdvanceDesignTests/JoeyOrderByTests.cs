@@ -108,7 +108,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            ComboCompare comboCompare
+            IComparer<Employee> comboCompare
             )
         {
             //bubble sort
