@@ -85,7 +85,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            CompareObject compareObject, 
+            IComparer<Employee> compareObject, 
             Func<Employee, string> secondCompareItemSelector, 
             IComparer<string> secondComparer)
         {
