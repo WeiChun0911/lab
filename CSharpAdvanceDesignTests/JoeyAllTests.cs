@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
-    [Ignore("not yet")]
     [TestFixture]
     public class JoeyAllTests
     {
@@ -26,7 +25,17 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeyAll(IEnumerable<Girl> girls)
         {
-            throw new System.NotImplementedException();
+            var enumerator = girls.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var girl = enumerator.Current;
+                if (girl.Age < 18)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
