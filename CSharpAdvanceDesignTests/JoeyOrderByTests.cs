@@ -89,11 +89,11 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
+            var firstCompareObject = new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default);
+            var secondCompareObject = new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default);
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees, 
-                new ComboCompare(
-                    new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default), 
-                    new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default)));
+                new ComboCompare(firstCompareObject, secondCompareObject));
 
             var expected = new[]
             {
