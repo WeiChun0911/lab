@@ -19,10 +19,20 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
+        //[Test]
+        //public void empty_numbers_with_int()
+        //{
+        //    var numbers = new List<int>() { };
+
+        //    var actual = JoeyFirstOrDefault(numbers);
+
+        //    Assert.AreEqual(0, actual);
+        //}
+
         private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
-            return enumerator.MoveNext() ? enumerator.Current: null;
+            return enumerator.MoveNext() ? enumerator.Current: default(Employee);
         }
     }
 }
