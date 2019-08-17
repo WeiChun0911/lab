@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -29,25 +30,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "Tom", Role = Role.Manager},
                 new Employee() {FirstName = "May", Role = Role.Engineer},
             };
-            var actual = JoeyLastOrDefaultWithCondition(employees, employee => employee.Role == Role.Manager);
+            var actual = employees.JoeyLastOrDefaultWithCondition(employee => employee.Role == Role.Manager);
             new Employee() { FirstName = "Tom", Role = Role.Manager }.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private TSource JoeyLastOrDefaultWithCondition<TSource>(IEnumerable<TSource> employees, Func<TSource, bool> predicate)
-        {
-            var enumerator = employees.GetEnumerator();
-            var result = default(TSource);
-
-            while (enumerator.MoveNext())
-            {
-                var employee = enumerator.Current;
-                if (predicate(employee))
-                {
-                    result = employee;
-                }
-            }
-
-            return result;
         }
 
         private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)

@@ -173,5 +173,22 @@ namespace Lab
 
             return false;
         }
+
+        public static TSource JoeyLastOrDefaultWithCondition<TSource>(this IEnumerable<TSource> employees, Func<TSource, bool> predicate)
+        {
+            var enumerator = employees.GetEnumerator();
+            var result = default(TSource);
+
+            while (enumerator.MoveNext())
+            {
+                var employee = enumerator.Current;
+                if (predicate(employee))
+                {
+                    result = employee;
+                }
+            }
+
+            return result;
+        }
     }
 }
