@@ -7,6 +7,18 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class CompareObject
+    {
+        public CompareObject(Func<Employee, string> firstCompareItemSelector, IComparer<string> firstComparer)
+        {
+            FirstCompareItemSelector = firstCompareItemSelector;
+            FirstComparer = firstComparer;
+        }
+
+        public Func<Employee, string> FirstCompareItemSelector { get; private set; }
+        public IComparer<string> FirstComparer { get; private set; }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -46,9 +58,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(
-                employees, 
-                currentElement => currentElement.LastName, Comparer<string>.Default, currentElement1 => currentElement1.FirstName);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default), currentElement1 => currentElement1.FirstName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -61,7 +71,11 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> fisrtCompareItemSelector, Comparer<string> FisrtComparer, Func<Employee, string> SecondCompareItemSelector)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees, 
+            CompareObject compareObject, 
+            Func<Employee, string> secondCompareItemSelector, 
+            IComparer<string> secondComparer)
         {
             //bubble sort
             var elements = employees.ToList();
@@ -73,7 +87,9 @@ namespace CSharpAdvanceDesignTests
                 {
                     //比較小就 swap
                     var currentElement = elements[i];
-                    var firstCompareResult = FisrtComparer.Compare(fisrtCompareItemSelector(currentElement), fisrtCompareItemSelector(minElement));
+                    var firstCompareResult = compareObject.FirstComparer.Compare(
+                        compareObject.FirstCompareItemSelector(currentElement), 
+                        compareObject.FirstCompareItemSelector(minElement));
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
@@ -82,7 +98,9 @@ namespace CSharpAdvanceDesignTests
                     //一樣就比 FirstName
                     else if (firstCompareResult == 0)
                     {
-                        if (Comparer<string>.Default.Compare(SecondCompareItemSelector(currentElement), SecondCompareItemSelector(minElement)) < 0)
+                        if (secondComparer.Compare(
+                                secondCompareItemSelector(currentElement), 
+                                secondCompareItemSelector(minElement)) < 0)
                         {
                             minElement = currentElement;
                             index = i;
