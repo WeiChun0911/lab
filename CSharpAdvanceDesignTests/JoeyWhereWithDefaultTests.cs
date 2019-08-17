@@ -4,11 +4,12 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyWhereWithDefaultTests
     {
         [Test]
@@ -20,21 +21,24 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
             };
 
-            var actual = WhereWithDefault(
-                employees,
-                e => e.Role == Role.Manager,
-                new Employee { FirstName = "Joey", LastName = "Chen", Role = Role.Engineer });
+            //var actual = WhereWithDefault(
+            //    employees,
+            //    e => e.Role == Role.Manager,
+            //    new Employee { FirstName = "Joey", LastName = "Chen", Role = Role.Engineer });
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
 
-            expected.ToExpectedObject().ShouldMatch(actual);
+           // expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
-            Employee defaultEmployee)
-        {
-            throw new NotImplementedException();
-        }
+        //private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
+        //    Employee defaultEmployee)
+        //{
+        //    var enumerator = employees.GetEnumerator();
+
+        //    var possibleResult = employees.JoeyWhere(predicate);
+
+        //}
     }
 }
