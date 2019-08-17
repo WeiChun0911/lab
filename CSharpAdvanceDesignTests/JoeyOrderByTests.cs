@@ -84,7 +84,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            IComparer<Employee> compareObject, 
+            IComparer<Employee> firstCompareObject, 
             IComparer<Employee> secondCompareObject)
         {
             //bubble sort
@@ -96,7 +96,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var currentElement = elements[i];
-                    var firstCompareResult = compareObject.Compare(currentElement, minElement);
+                    var firstCompareResult = firstCompareObject.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
