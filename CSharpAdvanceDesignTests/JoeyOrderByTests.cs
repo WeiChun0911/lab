@@ -40,22 +40,13 @@ namespace CSharpAdvanceDesignTests
 
         public int Compare(Employee x, Employee y)
         {
-            int finalResult = 0;
             var firstCompareResult = FirstCompareObject.Compare(x, y);
-            if (firstCompareResult < 0)
+            if (firstCompareResult != 0)
             {
-                finalResult = firstCompareResult;
-            }
-            else if (firstCompareResult == 0)
-            {
-                var secondCompareResult = SecondCompareObject.Compare(x, y);
-                if (secondCompareResult < 0)
-                {
-                    finalResult = secondCompareResult;
-                }
+                return firstCompareResult;
             }
 
-            return finalResult;
+            return SecondCompareObject.Compare(x, y);
         }
     }
 
