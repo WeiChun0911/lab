@@ -6,12 +6,12 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyCompareBuilder : IEnumerable<Employee>
+    public class MyOrderedEnumerable : IEnumerable<Employee>
     {
         private readonly IEnumerable<Employee> _employees;
         private readonly IComparer<Employee> _comboCompare;
 
-        public MyCompareBuilder(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
+        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
         {
             _employees = employees;
             _comboCompare = comboCompare;
@@ -245,13 +245,17 @@ namespace Lab
         )
         {
             //bubble sort
-            return new MyCompareBuilder(employees, comboCompare);
-            //return MyCompareBuilder.Sort(employees, comboCompare);
+            return new MyOrderedEnumerable(employees, comboCompare);
         }
 
-        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, Func<Employee, string> keySelector)
+        public static MyOrderedEnumerable JoeyOrderBy(this IEnumerable<Employee> employees, Func<Employee, string> keySelector)
         {
-            return new MyCompareBuilder(employees, new CompareObject(keySelector, Comparer<string>.Default));
+            return new MyOrderedEnumerable(employees, new CompareObject(keySelector, Comparer<string>.Default));
+        }
+        public static MyOrderedEnumerable JoeyThenBy(this MyOrderedEnumerable employees,
+            Func<Employee, string> keySelector)
+        {
+            throw new NotImplementedException();
         }
     }
 }

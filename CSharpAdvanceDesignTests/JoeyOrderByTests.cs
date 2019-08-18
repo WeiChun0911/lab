@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -7,6 +8,26 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class CompareObject: IComparer<Employee>
+    {
+        public CompareObject(Func<Employee, string> compareItemSelector, IComparer<string> comparer)
+        {
+            CompareItemSelector = compareItemSelector;
+            Comparer = comparer;
+        }
+
+        public Func<Employee, string> CompareItemSelector { get; private set; }
+        public IComparer<string> Comparer { get; private set; }
+
+        public int Compare(Employee x, Employee y)
+        {
+            var firstCompareResult = Comparer.Compare(
+                CompareItemSelector(x),
+                CompareItemSelector(y));
+            return firstCompareResult;
+        }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -34,7 +55,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-
         //[Test]
         //public void orderBy_lastName_and_firstName()
         //{
@@ -60,6 +80,33 @@ namespace CSharpAdvanceDesignTests
 
         //    expected.ToExpectedObject().ShouldMatch(actual);
         //}
+
+        [Test]
+        public void orderBy_lastName_and_firstName_use_thenBy()
+        {
+            var employees = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Wang"},
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joseph", LastName = "Chen"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+            };
+
+            var actual = employees
+                .JoeyOrderBy(e => e.LastName)
+                .JoeyThenBy(e => e.FirstName);
+
+            var expected = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "Joseph", LastName = "Chen"},
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Wang"},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+       
 
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
