@@ -17,7 +17,7 @@ namespace Lab
             _comboCompare = comboCompare;
         }
 
-        public static IEnumerable<Employee> Sort(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
+        public static IEnumerator<Employee> Sort(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
         {
             var elements = employees.ToList();
             while (elements.Any())
@@ -44,7 +44,7 @@ namespace Lab
 
         public IEnumerator<Employee> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return Sort(_employees, _comboCompare);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
