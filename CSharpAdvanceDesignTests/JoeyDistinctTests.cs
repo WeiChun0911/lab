@@ -92,7 +92,7 @@ namespace CSharpAdvanceDesignTests
 
         public int GetHashCode(Employee obj)
         {
-            //return new Tuple(obj.FirstName,obj.LastName)
+            return new Tuple<string, string>(obj.FirstName, obj.LastName).GetHashCode();
             return new {obj.FirstName,obj.LastName}.GetHashCode();
         }
     }
