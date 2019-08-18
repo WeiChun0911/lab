@@ -51,6 +51,11 @@ namespace Lab
         {
             return GetEnumerator();
         }
+
+        public MyOrderedEnumerable AppendComparer(Func<Employee, string> keySelector, Comparer<string> comparer)
+        {
+            return new MyOrderedEnumerable(_employees, new ComboCompare(_comboCompare,new CompareObject(keySelector,comparer)));
+        }
     }
 
     public static class ExtensionMethod
@@ -255,7 +260,7 @@ namespace Lab
         public static MyOrderedEnumerable JoeyThenBy(this MyOrderedEnumerable employees,
             Func<Employee, string> keySelector)
         {
-            throw new NotImplementedException();
+            return employees.AppendComparer(keySelector, Comparer<string>.Default);
         }
     }
 }

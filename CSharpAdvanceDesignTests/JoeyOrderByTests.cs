@@ -1,5 +1,4 @@
-﻿using System;
-using ExpectedObjects;
+﻿using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -8,26 +7,6 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CompareObject: IComparer<Employee>
-    {
-        public CompareObject(Func<Employee, string> compareItemSelector, IComparer<string> comparer)
-        {
-            CompareItemSelector = compareItemSelector;
-            Comparer = comparer;
-        }
-
-        public Func<Employee, string> CompareItemSelector { get; private set; }
-        public IComparer<string> Comparer { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstCompareResult = Comparer.Compare(
-                CompareItemSelector(x),
-                CompareItemSelector(y));
-            return firstCompareResult;
-        }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -107,8 +86,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
        
-
-
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
         {
             //bubble sort
