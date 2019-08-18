@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
 
 namespace Lab
 {
-    public class MyCompareBuilder
+    public class MyCompareBuilder : IEnumerable<Employee>
     {
         private IEnumerable<Employee> _employees;
         private IComparer<Employee> _comboCompare;
@@ -39,6 +40,16 @@ namespace Lab
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        public IEnumerator<Employee> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 
@@ -239,7 +250,7 @@ namespace Lab
 
         public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, Func<Employee, string> keySelector)
         {
-            throw new System.NotImplementedException();
+            return new MyCompareBuilder(employees, new CompareObject(keySelector, Comparer<string>.Default));
         }
     }
 }

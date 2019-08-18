@@ -1,5 +1,4 @@
-﻿using System;
-using ExpectedObjects;
+﻿using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -8,49 +7,6 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CompareObject: IComparer<Employee>
-    {
-        public CompareObject(Func<Employee, string> compareItemSelector, IComparer<string> comparer)
-        {
-            CompareItemSelector = compareItemSelector;
-            Comparer = comparer;
-        }
-
-        public Func<Employee, string> CompareItemSelector { get; private set; }
-        public IComparer<string> Comparer { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstCompareResult = Comparer.Compare(
-                CompareItemSelector(x),
-                CompareItemSelector(y));
-            return firstCompareResult;
-        }
-    }
-
-    public class ComboCompare: IComparer<Employee>
-    {
-        public ComboCompare(IComparer<Employee> firstCompareObject, IComparer<Employee> secondCompareObject)
-        {
-            FirstCompareObject = firstCompareObject;
-            SecondCompareObject = secondCompareObject;
-        }
-
-        public IComparer<Employee> FirstCompareObject { get; private set; }
-        public IComparer<Employee> SecondCompareObject { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstCompareResult = FirstCompareObject.Compare(x, y);
-            if (firstCompareResult != 0)
-            {
-                return firstCompareResult;
-            }
-
-            return SecondCompareObject.Compare(x, y);
-        }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
