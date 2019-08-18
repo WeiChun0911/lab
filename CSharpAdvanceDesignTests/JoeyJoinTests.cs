@@ -7,7 +7,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyJoinTests
     {
         [Test]
@@ -47,7 +46,20 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees, IEnumerable<Pet> pets)
         {
-            throw new NotImplementedException();
+            var employeeEnumerator = employees.GetEnumerator();
+            while (employeeEnumerator.MoveNext())
+            {
+                var employee = employeeEnumerator.Current;
+                var petEnumerator = pets.GetEnumerator();
+                while (petEnumerator.MoveNext())
+                {
+                    var pet = petEnumerator.Current;
+                    if (employee == pet.Owner)
+                    {
+                        yield return Tuple.Create(employee.FirstName, pet.Name);
+                    }
+                }
+            }
         }
     }
 }
