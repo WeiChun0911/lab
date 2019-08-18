@@ -8,8 +8,8 @@ namespace Lab
 {
     public class MyCompareBuilder : IEnumerable<Employee>
     {
-        private IEnumerable<Employee> _employees;
-        private IComparer<Employee> _comboCompare;
+        private readonly IEnumerable<Employee> _employees;
+        private readonly IComparer<Employee> _comboCompare;
 
         public MyCompareBuilder(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
         {
@@ -245,7 +245,8 @@ namespace Lab
         )
         {
             //bubble sort
-            return MyCompareBuilder.Sort(employees, comboCompare);
+            return new MyCompareBuilder(employees, comboCompare);
+            //return MyCompareBuilder.Sort(employees, comboCompare);
         }
 
         public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, Func<Employee, string> keySelector)
