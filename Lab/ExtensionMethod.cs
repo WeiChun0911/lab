@@ -5,6 +5,34 @@ using Lab.Entities;
 
 namespace Lab
 {
+    public static class MyCompareBuilder
+    {
+        public static IEnumerable<Employee> Sort(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
+        {
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var currentElement = elements[i];
+
+                    var finalResult = comboCompare.Compare(currentElement, minElement);
+
+                    if (finalResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
+        }
+    }
+
     public static class ExtensionMethod
     {
         public static bool IsEmpty<TSource>(IEnumerable<TSource> source)
@@ -197,27 +225,12 @@ namespace Lab
         )
         {
             //bubble sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var currentElement = elements[i];
+            return MyCompareBuilder.Sort(employees, comboCompare);
+        }
 
-                    var finalResult = comboCompare.Compare(currentElement, minElement);
-
-                    if (finalResult < 0)
-                    {
-                        minElement = currentElement;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
+        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, Func<Employee, string> keySelector)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
