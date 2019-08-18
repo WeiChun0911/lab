@@ -6,12 +6,13 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public interface ICompareBuilder
+
+    public interface IMyOrderedEnumerable : IEnumerable<Employee>
     {
         MyOrderedEnumerable AppendComparer(Func<Employee, string> keySelector, Comparer<string> comparer);
     }
 
-    public class MyOrderedEnumerable : IEnumerable<Employee>, ICompareBuilder
+    public class MyOrderedEnumerable : IMyOrderedEnumerable
     {
         private readonly IEnumerable<Employee> _employees;
         private readonly IComparer<Employee> _comboCompare;
@@ -59,8 +60,7 @@ namespace Lab
 
         public MyOrderedEnumerable AppendComparer(Func<Employee, string> keySelector, Comparer<string> comparer)
         {
-            var nextComparer = new CompareObject(keySelector,comparer);
-            return new MyOrderedEnumerable(_employees, new ComboCompare(_comboCompare,nextComparer));
+            return new MyOrderedEnumerable(_employees, new ComboCompare(_comboCompare,new CompareObject(keySelector,comparer)));
         }
     }
 
