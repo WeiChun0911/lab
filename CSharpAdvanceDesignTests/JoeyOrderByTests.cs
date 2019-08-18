@@ -4,6 +4,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -91,9 +92,7 @@ namespace CSharpAdvanceDesignTests
 
             var firstCompareObject = new CompareObject(currentElement => currentElement.LastName, Comparer<string>.Default);
             var secondCompareObject = new CompareObject(currentElement => currentElement.FirstName, Comparer<string>.Default);
-            var actual = JoeyOrderByLastNameAndFirstName(
-                employees, 
-                new ComboCompare(firstCompareObject, secondCompareObject));
+            var actual = employees.JoeyOrderByLastNameAndFirstName(new ComboCompare(firstCompareObject, secondCompareObject));
 
             var expected = new[]
             {
@@ -104,35 +103,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, 
-            IComparer<Employee> comboCompare
-            )
-        {
-            //bubble sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var currentElement = elements[i];
-
-                    var finalResult = comboCompare.Compare(currentElement, minElement);
-
-                    if (finalResult < 0)
-                    {
-                        minElement = currentElement;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)

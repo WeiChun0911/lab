@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lab.Entities;
 
 namespace Lab
 {
@@ -189,6 +190,34 @@ namespace Lab
             }
 
             return result;
+        }
+
+        public static IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(this IEnumerable<Employee> employees, 
+            IComparer<Employee> comboCompare
+        )
+        {
+            //bubble sort
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var currentElement = elements[i];
+
+                    var finalResult = comboCompare.Compare(currentElement, minElement);
+
+                    if (finalResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
         }
     }
 }
