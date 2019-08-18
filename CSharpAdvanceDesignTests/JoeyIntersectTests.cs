@@ -23,16 +23,28 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeyIntersect(IEnumerable<int> first, IEnumerable<int> second)
         {
-            var firstHashSet = new HashSet<int>(first);
+            //用兩個 hashSet 來過濾 最後一個 5 太菜了
+            //var firstHashSet = new HashSet<int>(first);
+            //var secondHashSet = new HashSet<int>(second);
+            //var enumerator = firstHashSet.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    var current = enumerator.Current;
+            //    if (secondHashSet.Add(current))
+            //    {
+            //    }
+            //    else
+            //    {
+            //        yield return current;
+            //    }
+            //}
+
             var secondHashSet = new HashSet<int>(second);
-            var enumerator = firstHashSet.GetEnumerator();
+            var enumerator = first.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (secondHashSet.Add(current))
-                {
-                }
-                else
+                if (secondHashSet.Remove(current))
                 {
                     yield return current;
                 }
