@@ -7,6 +7,15 @@ namespace Lab
 {
     public class MyCompareBuilder
     {
+        private IEnumerable<Employee> _employees;
+        private IComparer<Employee> _comboCompare;
+
+        public MyCompareBuilder(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
+        {
+            _employees = employees;
+            _comboCompare = comboCompare;
+        }
+
         public static IEnumerable<Employee> Sort(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
         {
             var elements = employees.ToList();
