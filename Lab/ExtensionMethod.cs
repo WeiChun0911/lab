@@ -5,7 +5,7 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public static class MyCompareBuilder
+    public class MyCompareBuilder
     {
         public static IEnumerable<Employee> Sort(IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
         {
