@@ -6,7 +6,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyReverseTests
     {
         [Test]
@@ -33,7 +32,19 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyReverse(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            //var enumerator = employees.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    while (enumerator.MoveNext())
+            //    {
+            //    }
+
+            //    yield return enumerator.Current;
+            //    enumerator.Reset();
+            //    //這裡要把最後一個元素刪掉才會成功、但刪不了
+            //}
+            return new Stack<Employee>(employees);
+            //Stack 在 new 的時候就已經反轉了
         }
     }
 }

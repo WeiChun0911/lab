@@ -39,9 +39,9 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (current.GetType() == typeof(T))
+                if (current is T c)
                 {
-                    yield return (T)current;
+                    yield return c;
                 }
             }
         }
